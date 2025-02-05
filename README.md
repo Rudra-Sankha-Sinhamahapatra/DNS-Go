@@ -84,11 +84,12 @@ The project is organized as follows:
 
 ```
 dns-server-go/
-│
-├── src/
-│   ├── main.go           # Main entry point for the DNS server
-│   ├── serveDns.go       # DNS query handler and resolver
-│   └── records.go        # Holds domain-to-IP mappings (in-memory)
+│── src/
+│   ├── main.go        # Entry point of the DNS server
+│   ├── records.go     # Manages local DNS records
+│   ├── resolve.go     # Handles external DNS resolution
+│   ├── sendDns.go     # Constructs and sends DNS responses
+│   ├── serveDns.go    # Handles incoming DNS queries and routing
 │
 ├── go.mod                # Go module definition
 └── README.md             # Project documentation
