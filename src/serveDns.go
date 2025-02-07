@@ -1,6 +1,7 @@
 package main
 
 import (
+	"example/user/hello/src/utils"
 	"fmt"
 	"net"
 
@@ -14,6 +15,7 @@ func serveDNS(u *net.UDPConn, clientAddr net.Addr, request *layers.DNS) {
 	if !found {
 		resolvedIP, err := resolveFromExternal(domain)
 		if err != nil {
+			utils.Logger.Error("❌ Failed to resolve domain", domain)
 			fmt.Println("❌ Failed to resolve domain", domain)
 			sendDNSResponse(u, clientAddr, request, "", true)
 			return
@@ -21,9 +23,11 @@ func serveDNS(u *net.UDPConn, clientAddr net.Addr, request *layers.DNS) {
 
 		records[domain] = resolvedIP
 		ip = resolvedIP
-		fmt.Println("✅ Domain exists on IP:", ip)
+		utils.Logger.Info("✅ Domain ", domain, " exists on IP:", ip)
+		fmt.Println("✅ Domain ", domain, " exists on IP:", ip)
 	} else {
-		fmt.Println("✅ Domain found in cache:", ip)
+		utils.Logger.Info("✅ Domain ", domain, " found in cache:", ip)
+		fmt.Println("✅ Domain ", domain, " found in cache:", ip)
 	}
 	sendDNSResponse(u, clientAddr, request, ip, false)
 }

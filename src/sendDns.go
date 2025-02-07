@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"example/user/hello/src/utils"
 	"net"
 
 	"github.com/google/gopacket"
@@ -39,12 +39,12 @@ func sendDNSResponse(u *net.UDPConn, clientAddr net.Addr, request *layers.DNS, i
 	opts := gopacket.SerializeOptions{}
 	err := replyMess.SerializeTo(buf, opts)
 	if err != nil {
-		fmt.Println("Error serializing Dns Response ", err)
+		utils.Logger.Error("Error serializing Dns Response ", err)
 		return
 	}
 
 	_, err = u.WriteTo(buf.Bytes(), clientAddr)
 	if err != nil {
-		fmt.Println("Error Seding DNS response: ", err)
+		utils.Logger.Error("Error Seding DNS response: ", err)
 	}
 }

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"example/user/hello/src/utils"
 	"fmt"
 	"net"
 
@@ -9,6 +10,9 @@ import (
 )
 
 func main() {
+	utils.InitLogger()
+
+	utils.Logger.Info("DNS Server Started on 127.0.0.1:8090")
 	fmt.Println("DNS Server Started on 127.0.0.1:8090")
 	records = make(map[string]string)
 
@@ -20,7 +24,7 @@ func main() {
 
 	u, err := net.ListenUDP("udp", &addr)
 	if err != nil {
-		fmt.Println("Error setting up UDP server:", err)
+		utils.Logger.Error("Error setting up UDP server:", err)
 		return
 	}
 	defer u.Close()
@@ -30,7 +34,7 @@ func main() {
 		tmp := make([]byte, 1024)
 		_, clientAddr, err := u.ReadFrom(tmp)
 		if err != nil {
-			fmt.Println("Error reading UDP packet:", err)
+			utils.Logger.Error("Error reading UDP packet:", err)
 			continue
 		}
 
@@ -38,13 +42,13 @@ func main() {
 		packet := gopacket.NewPacket(tmp, layers.LayerTypeDNS, gopacket.Default)
 		dnsPacket := packet.Layer(layers.LayerTypeDNS)
 		if dnsPacket == nil {
-			fmt.Println("Non-DNS packet received")
+			utils.Logger.Warn("Non-DNS packet received")
 			continue
 		}
 
 		tcp, _ := dnsPacket.(*layers.DNS)
 		if tcp == nil {
-			fmt.Println("Failed to parse DNS packet")
+			utils.Logger.Warn("Failed to parse DNS packet")
 			continue
 		}
 
