@@ -12,14 +12,15 @@ import (
 func main() {
 	utils.LoadConfig()
 	utils.InitLogger()
-	utils.Logger.Infof("DNS Server Started on 127.0.0.1:%d", utils.AppConfig.ServerPort)
-	fmt.Printf("DNS Server Started on 127.0.0.1:%d\n", utils.AppConfig.ServerPort)
+	Ip := utils.AppConfig.Ip
+	utils.Logger.Infof("DNS Server Started on %s:%d", Ip, utils.AppConfig.ServerPort)
+	fmt.Printf("DNS Server Started on %s:%d\n", Ip, utils.AppConfig.ServerPort)
 	records = make(map[string]string)
 
 	// Listen on UDP Port 8090
 	addr := net.UDPAddr{
 		Port: utils.AppConfig.ServerPort,
-		IP:   net.ParseIP("127.0.0.1"),
+		IP:   net.ParseIP(utils.AppConfig.Ip),
 	}
 
 	u, err := net.ListenUDP("udp", &addr)
