@@ -15,7 +15,7 @@ func InitLogger() {
 
 	Logger.SetLevel(logrus.InfoLevel)
 
-	file, err := os.OpenFile("dns_server.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	file, err := os.OpenFile(AppConfig.LogFile, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 
 	if err == nil {
 		Logger.SetOutput(file)

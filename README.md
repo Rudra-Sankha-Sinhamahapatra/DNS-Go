@@ -1,7 +1,4 @@
 
-
----
-
 # DNS Server in Go
 
 This project implements a simple DNS server in Go that listens for DNS queries and resolves domain names to IP addresses. The server can either resolve known records from a local mapping or perform external DNS lookups for unknown domains.
@@ -11,15 +8,17 @@ This project implements a simple DNS server in Go that listens for DNS queries a
 - Resolve domain names to IP addresses.
 - Cache resolved domain names for future requests.
 - Perform external DNS resolution for unknown domains.
+- Configurable logging and port settings via `.env` file.
 
 ---
 
 ## Table of Contents
 1. [Installation](#installation)
-2. [Usage](#usage)
-3. [Testing](#testing)
-4. [Project Structure](#project-structure)
-5. [License](#license)
+2. [Configuration](#configuration)
+3. [Usage](#usage)
+4. [Testing](#testing)
+5. [Project Structure](#project-structure)
+6. [License](#license)
 
 ---
 
@@ -42,6 +41,25 @@ To run the DNS server locally, follow these steps:
 
 ---
 
+## Configuration
+
+The server uses environment variables for configuration. Create a `.env` file in the root directory and define the following variables:
+
+```bash
+DNS_SERVER_PORT=9000
+DNS_LOG_FILE=dns_server.log
+```
+
+- `DNS_SERVER_PORT`: The port on which the DNS server will listen.
+- `DNS_LOG_FILE`: The file where logs will be stored.
+
+Make sure to load the environment variables before running the server:
+```bash
+source .env
+```
+
+---
+
 ## Usage
 
 1. **Start the DNS Server:**
@@ -49,12 +67,12 @@ To run the DNS server locally, follow these steps:
    ```bash
    go run ./src
    ```
-   The server will start listening on `127.0.0.1:8090`.
+   The server will start listening on `127.0.0.1:9000` (or the port specified in `.env`).
 
 2. **Test the Server with `dig`:**
    Use the `dig` command to test your server's DNS resolution. For example:
    ```bash
-   dig @127.0.0.1 -p 8090 google.com
+   dig @127.0.0.1 -p 9000 google.com
    ```
 
    The server will respond with an IP address if the domain is resolved in the local records. If the domain is not found, it will attempt an external resolution and cache the result for future queries.
@@ -71,7 +89,7 @@ You can test the DNS server via `dig`, as shown in the usage section. Here’s h
 1. Open a terminal or command prompt.
 2. Run:
    ```bash
-   dig @127.0.0.1 -p 8090 rudrasankha.in
+   dig @127.0.0.1 -p 9000 rudrasankha.in
    ```
 
    If the domain is found in the server's records, you will get the resolved IP. If not, the server will attempt to resolve it externally and return the IP.
@@ -90,9 +108,13 @@ dns-server-go/
 │   ├── resolve.go     # Handles external DNS resolution
 │   ├── sendDns.go     # Constructs and sends DNS responses
 │   ├── serveDns.go    # Handles incoming DNS queries and routing
+│   ├── utils/
+│       ├── config.go  # Loads environment variables from .env
+│       ├── logger.go  # Configures logging
 │
-├── go.mod                # Go module definition
-└── README.md             # Project documentation
+├── .env                # Configuration file for server settings
+├── go.mod              # Go module definition
+└── README.md           # Project documentation
 ```
 
 ---
@@ -102,3 +124,4 @@ dns-server-go/
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
+
