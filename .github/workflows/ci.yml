@@ -30,6 +30,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-go-
 
+      - name: Create .env file
+        run: echo "${{ secrets.ENV_FILE_CONTENTS }}" > .env
+        
       - name: Install Dependencies
         run: go mod tidy
 
