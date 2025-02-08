@@ -1,4 +1,3 @@
-
 # DNS Server in Go
 
 This project implements a simple DNS server in Go that listens for DNS queries and resolves domain names to IP addresses. The server can either resolve known records from a local mapping or perform external DNS lookups for unknown domains.
@@ -17,8 +16,9 @@ This project implements a simple DNS server in Go that listens for DNS queries a
 2. [Configuration](#configuration)
 3. [Usage](#usage)
 4. [Testing](#testing)
-5. [Project Structure](#project-structure)
-6. [License](#license)
+5. [Build](#build)
+6. [Project Structure](#project-structure)
+7. [License](#license)
 
 ---
 
@@ -97,7 +97,6 @@ go test ./tests -v
 
 If tests pass, the output should indicate success. If there are errors, debug by checking the `.env` configuration or updating test cases accordingly.
 
-
 ### **Manual Testing**
 
 You can manually test the DNS server via `dig`, as shown in the usage section. Here’s how to test with `dig`:
@@ -112,10 +111,24 @@ You can manually test the DNS server via `dig`, as shown in the usage section. H
 
 ---
 
+## Build
+
+To build the DNS server executable, run:
+```bash
+go build -o dns-server ./src
+```
+This will create a `dns-server` binary that you can execute.
+
+To run the built binary:
+```bash
+./dns-server
+```
+
+---
+
 ## Project Structure
 
 The project is organized as follows:
-
 
 ```
 dns-server-go/
@@ -136,7 +149,6 @@ dns-server-go/
 ├── README.md           # Project documentation
 ```
 
-
 ---
 
 ## License
@@ -144,4 +156,3 @@ dns-server-go/
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
-
