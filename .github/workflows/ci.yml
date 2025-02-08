@@ -31,12 +31,23 @@ jobs:
             ${{ runner.os }}-go-
 
       - name: Create .env file
-        run: echo "${{ secrets.ENV_FILE_CONTENTS }}" > .env
-        
+        run: |
+          echo "DNS_SERVER_PORT=${{ secrets.DNS_SERVER_PORT }}" >> .env
+          echo "DNS_LOG_FILE=${{ secrets.DNS_LOG_FILE }}" >> .env
+          echo "DNS_SERVER_IP=${{ secrets.DNS_SERVER_IP }}" >> .env
+          cat .env  # Debugging: Print .env to verify contents
+
+      - name: Load Environment Variables
+        run: echo "DOTENV_LOADED=1" >> $GITHUB_ENV  # Ensure env file is created
+
       - name: Install Dependencies
         run: go mod tidy
 
       - name: Run Unit Tests
+        env:
+          DNS_SERVER_PORT: ${{ secrets.DNS_SERVER_PORT }}
+          DNS_LOG_FILE: ${{ secrets.DNS_LOG_FILE }}
+          DNS_SERVER_IP: ${{ secrets.DNS_SERVER_IP }}
         run: go test ./tests -v
 
       - name: Build Application
