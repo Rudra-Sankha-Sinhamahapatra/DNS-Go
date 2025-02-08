@@ -84,7 +84,23 @@ source .env
 
 ## Testing
 
-You can test the DNS server via `dig`, as shown in the usage section. Here’s how to test with `dig`:
+#### **Run Tests**
+Execute the following command to run all tests:
+```bash
+go test ./tests -v
+```
+
+#### **What is Tested?**
+- Ensures `LoadConfig()` correctly loads environment variables.
+- Verifies default values are used when environment variables are missing.
+- Confirms that the server IP, port, and log file configurations are set correctly.
+
+If tests pass, the output should indicate success. If there are errors, debug by checking the `.env` configuration or updating test cases accordingly.
+
+
+### **Manual Testing**
+
+You can manually test the DNS server via `dig`, as shown in the usage section. Here’s how to test with `dig`:
 
 1. Open a terminal or command prompt.
 2. Run:
@@ -100,6 +116,7 @@ You can test the DNS server via `dig`, as shown in the usage section. Here’s h
 
 The project is organized as follows:
 
+
 ```
 dns-server-go/
 │── src/
@@ -114,8 +131,11 @@ dns-server-go/
 │
 ├── .env                # Configuration file for server settings
 ├── go.mod              # Go module definition
-└── README.md           # Project documentation
+├── tests/              # Unit tests for configuration and functionality
+│   ├── config.tests.go # Unit tests for configuration loading
+├── README.md           # Project documentation
 ```
+
 
 ---
 

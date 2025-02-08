@@ -15,8 +15,12 @@ type Config struct {
 
 var AppConfig Config
 
-func LoadConfig() {
-	_ = godotenv.Load()
+func LoadConfig() (Config, error) {
+	err := godotenv.Load()
+
+	if err != nil {
+		return Config{}, err
+	}
 
 	portStr := os.Getenv("DNS_SERVER_PORT")
 	port, err := strconv.Atoi(portStr)
@@ -39,5 +43,7 @@ func LoadConfig() {
 		LogFile:    logFile,
 		Ip:         ip,
 	}
+
+	return AppConfig, nil
 
 }
