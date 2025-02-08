@@ -40,7 +40,7 @@ jobs:
         run: go build -o dns-server ./src
 
       - name: Upload Build Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: dns-server-binary
           path: ./dns-server
