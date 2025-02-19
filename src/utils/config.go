@@ -25,7 +25,7 @@ func LoadConfig() (Config, error) {
 	portStr := os.Getenv("DNS_SERVER_PORT")
 	port, err := strconv.Atoi(portStr)
 	if err != nil || port <= 0 {
-		port = 8090
+		port = 8900
 	}
 
 	logFile := os.Getenv("DNS_LOG_FILE")

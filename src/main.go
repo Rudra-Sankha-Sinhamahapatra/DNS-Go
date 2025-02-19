@@ -17,7 +17,6 @@ func main() {
 	fmt.Printf("DNS Server Started on %s:%d\n", Ip, utils.AppConfig.ServerPort)
 	records = make(map[string]string)
 
-	// Listen on UDP Port 8090
 	addr := net.UDPAddr{
 		Port: utils.AppConfig.ServerPort,
 		IP:   net.ParseIP(utils.AppConfig.Ip),

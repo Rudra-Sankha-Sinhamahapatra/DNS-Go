@@ -22,8 +22,8 @@ func TestLoadConfig(t *testing.T) {
 		t.Errorf("Expected Ip 127.0.0.1 or 0.0.0.0, got %s", config.Ip)
 	}
 
-	if config.ServerPort != 9000 {
-		t.Errorf("Expected port 9000, got %d", config.ServerPort)
+	if config.ServerPort != 53 {
+		t.Errorf("Expected port 53, got %d", config.ServerPort)
 	}
 	if config.LogFile != "dns_server.log" {
 		t.Errorf("Expected log file dns_server.log, got %s", config.LogFile)
