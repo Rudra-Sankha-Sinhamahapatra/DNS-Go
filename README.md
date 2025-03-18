@@ -2,6 +2,9 @@
 
 This project implements a simple DNS server in Go that listens for DNS queries and resolves domain names to IP addresses. The server can either resolve known records from a local mapping or perform external DNS lookups for unknown domains.
 
+## Demo
+Link : https://youtu.be/2TGCAw0e63k
+
 ## Features
 - Listen for DNS queries on a specified UDP port.
 - Resolve domain names to IP addresses.
